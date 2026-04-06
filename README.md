@@ -1,58 +1,136 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🧑‍💼 社員管理システム（Employee Management App）
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 📌 概要
+本アプリは、社員情報および部署情報を一元管理するWebアプリケーションです。  
+実務でよくある「社員情報の検索・管理・集計」を想定し、業務効率化を目的として開発しました。
 
-## About Laravel
+認証・権限管理・検索・CSV出力など、実務で求められる機能を意識して設計しています。
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🔗 デモURL
+https://example.com
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🔑 テスト用アカウント
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### ■ 管理者アカウント
+メール：admin@test.com  
+パスワード：password  
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+※ 登録・編集・削除など全機能が利用可能です
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### ■ 一般ユーザー
+メール：user@test.com  
+パスワード：password  
 
-## Agentic Development
+※ 閲覧のみ可能です（権限制御を確認できます）
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
 
-```bash
-composer require laravel/boost --dev
+## 📸 スクリーンショット
 
-php artisan boost:install
-```
+### ■ ダッシュボード
+![ダッシュボード](images/dashboard.png)
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### ■ 社員一覧（検索・フィルタ・並び替え）
+![社員一覧](images/employees.png)
 
-## Contributing
+### ■ 社員登録画面
+![社員登録](images/create.png)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### ■ 部署管理
+![部署管理](images/departments.png)
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## ⚙️ 主な機能
 
-## Security Vulnerabilities
+### ■ 社員管理
+- 一覧表示（ページネーション対応）
+- 登録 / 編集 / 削除 / 詳細表示
+- 検索（氏名・メールの部分一致）
+- フィルタ（部署・ステータス）
+- 並び替え（カラムクリックで昇順・降順切替）
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### ■ 部署管理
+- 一覧 / 登録 / 編集 / 削除
+- 社員が紐づく部署は削除不可（データ整合性を担保）
 
-## License
+### ■ 認証・権限管理
+- Laravel Breezeによるログイン機能
+- Policyによる権限制御
+  - 管理者：admin → CRUD可能
+  - 一般ユーザー → 閲覧のみ
+- Blade（@can）＋Controller（authorize）で二重制御
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### ■ CSV出力
+- 検索・フィルタ条件を維持したまま出力
+- BOM付きでExcel文字化け対策
+
+### ■ ダッシュボード
+- 社員数（総数・在籍・休職・退職）
+- 部署数
+- 最近入社した社員一覧
+- 各画面への導線あり
+
+### ■ UI/UX改善
+- フラッシュメッセージのコンポーネント化
+- ステータスの色分け表示
+- 操作結果が分かりやすい設計
+
+---
+
+## 🛠 技術スタック
+- バックエンド：Laravel / PHP
+- フロントエンド：Blade / Tailwind CSS
+- データベース：MySQL
+- 環境構築：Docker（nginx / php / mysql / phpmyadmin）
+
+---
+
+## 💡 工夫した点
+
+### ■ 検索・フィルタ・ソートの統一設計
+検索・フィルタ・並び替え処理を  
+`buildEmployeeQuery()` に集約し、保守性と再利用性を向上させました。
+
+### ■ 実務を意識したデータ制約
+- 社員が紐づく部署は削除不可  
+→ 不整合データを防ぐ設計
+
+### ■ 権限管理の二重制御
+- Blade（UI）＋Controller（authorize）  
+→ セキュリティを意識
+
+### ■ CSV出力の実務対応
+- フィルタ状態維持  
+- BOM付き対応  
+→ Excelでそのまま使える
+
+### ■ UIの使いやすさ
+- メッセージ表示統一  
+- 色で状態を可視化  
+
+### ■ リファクタリング
+- クエリ処理の共通化  
+- バリデーション整理  
+
+---
+
+## 🚧 今後の課題
+- テストコードの追加（Feature / Unit）
+- API化（SPA対応）
+- ロール管理の拡張
+- UIの改善（モーダルなど）
+
+---
+
+## 📚 補足
+本アプリは以下を意識して開発しました：
+
+- 実務に近い機能の再現
+- 保守性の高い設計
+- セキュリティ（権限制御）の考慮
+- 操作しやすいUI設計
