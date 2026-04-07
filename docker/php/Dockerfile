@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     default-mysql-client \
+    nodejs \
+    npm \
     && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -22,10 +24,14 @@ COPY src/ /var/www/html
 
 RUN composer install --no-dev --optimize-autoloader
 
+RUN npm install && npm run build
+
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
-RUN rm -f /etc/nginx/sites-enabled/default \
-    && rm -f /etc/nginx/conf.d/default.conf.bak || true
+RUN rm -f /etc/nginx/sites-enabled/default || true
+
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 COPY scripts/start.sh /start.sh
 
