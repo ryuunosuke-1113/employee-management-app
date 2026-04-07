@@ -9,15 +9,15 @@ mkdir -p storage/framework/views
 mkdir -p storage/logs
 mkdir -p bootstrap/cache
 
-chmod -R 777 storage bootstrap/cache || true
+chown -R www-data:www-data storage bootstrap/cache || true
+chmod -R 775 storage bootstrap/cache || true
 
 rm -f bootstrap/cache/*.php || true
 
+php artisan migrate --force
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
-
-php artisan migrate --force
 
 php-fpm -D
 nginx -g "daemon off;"
