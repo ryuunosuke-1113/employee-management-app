@@ -23,6 +23,10 @@ COPY src/ /var/www/html
 RUN composer install --no-dev --optimize-autoloader
 
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+
+RUN rm -f /etc/nginx/sites-enabled/default \
+    && rm -f /etc/nginx/conf.d/default.conf.bak || true
+
 COPY scripts/start.sh /start.sh
 
 RUN chmod +x /start.sh \
