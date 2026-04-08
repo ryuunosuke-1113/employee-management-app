@@ -1,7 +1,6 @@
 services:
   nginx:
     image: nginx:1.25-alpine
-    container_name: employee_nginx
     ports:
       - "8080:80"
     volumes:
@@ -14,7 +13,6 @@ services:
     build:
       context: .
       dockerfile: ./docker/php/Dockerfile
-    container_name: employee_php
     volumes:
       - ./src:/var/www
     working_dir: /var/www
@@ -23,7 +21,6 @@ services:
 
   mysql:
     image: mysql:8.0
-    container_name: employee_mysql
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: employee_management
@@ -38,7 +35,6 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: employee_phpmyadmin
     restart: unless-stopped
     environment:
       PMA_HOST: mysql

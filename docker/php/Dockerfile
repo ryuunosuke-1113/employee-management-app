@@ -4,7 +4,6 @@ RUN apt-get update && apt-get install -y \
     git \
     unzip \
     curl \
-    nginx \
     libzip-dev \
     libpng-dev \
     libonig-dev \
@@ -18,26 +17,17 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www/html
+WORKDIR /var/www
 
-COPY src/ /var/www/html
+COPY src/ /var/www
 
 RUN composer install --no-dev --optimize-autoloader
-
 RUN npm install && npm run build
 
-COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
-
-RUN rm -f /etc/nginx/sites-enabled/default || true
-
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
+    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
 COPY scripts/start.sh /start.sh
-
-RUN chmod +x /start.sh \
-    && mkdir -p /run/php
-
-EXPOSE 80
+RUN chmod +x /start.sh
 
 CMD ["/start.sh"]
