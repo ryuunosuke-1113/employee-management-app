@@ -112,29 +112,49 @@ Policy、Controllerのauthorize、Bladeの@canを組み合わせ、
 ---
 
 ## 🚀 ローカル起動方法
-
+# 前提
+Docker Desktop がインストールされていること
+# セットアップ手順
 ```bash
 git clone https://github.com/ryuunosuke-1113/employee-management-app.git
 cd employee-management-app
-docker compose up -d
-docker compose exec php composer install
-docker compose exec php cp .env.example .env
-docker compose exec php php artisan key:generate
-docker compose exec php php artisan migrate --seed
+docker compose up -d --build
 ```
 
+初回起動時は、PHP コンテナ内で以下が自動実行されます。
 
-## 🔑 テスト用アカウント
+- Composer 依存関係のインストール
+- .env ファイルの作成
+- アプリケーションキーの生成
+- マイグレーション / シーディング
+- フロントエンドアセットのビルド
 
-ログインして動作確認ができます。
+セットアップ完了後、以下にアクセスしてください。
 
-| 権限 | メール | パスワード |
-|------|--------|-----------|
-| 管理者 | admin@example.com | password |
-| 一般ユーザー | user@example.com | password |
+- アプリ: http://localhost:8080
+- phpMyAdmin: http://localhost:8081
+# 🔑 テスト用アカウント
+権限	メール	パスワード
+管理者	admin@example.com
+	password
+一般ユーザー	user@example.com
+	password
 
 ※ 管理者アカウントでログインすると、登録・編集・削除機能を利用できます。
 ※ 一般ユーザーは閲覧のみ可能です。
+
+## 🧯 トラブルシューティング
+- コンテナの状態を確認したい場合
+docker compose ps
+- ログを確認したい場合
+docker compose logs -f
+- もう一度クリーンに起動したい場合
+docker compose down -v
+docker compose up -d --build
+- CSS が反映されない場合
+docker compose exec php npm run build
+- 権限エラーが出る場合
+docker compose exec php chmod -R 775 storage bootstrap/cache
 
 ## 📂 ディレクトリ構成（一部）
 ```bash
@@ -175,3 +195,17 @@ docker/
 
 現職の人事総務業務での課題をもとに設計しており、  
 単なるCRUDアプリではなく、実務での利用を意識した機能・制約を実装しています。
+
+## 🧯 トラブルシューティング
+
+- 画面が表示されない場合
+docker compose ps
+
+→ コンテナが起動しているか確認
+
+- CSSが崩れている場合
+docker compose exec php npm run build
+- 権限エラーが出る場合
+docker compose exec php chmod -R 775 storage bootstrap/cache
+- DB接続エラーの場合
+docker compose logs mysql

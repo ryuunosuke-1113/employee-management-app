@@ -19,14 +19,6 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-COPY src/ /var/www
-
-RUN composer install --no-dev --optimize-autoloader
-RUN npm install && npm run build
-
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
-    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
-
 COPY scripts/start.sh /start.sh
 RUN chmod +x /start.sh
 
