@@ -4,7 +4,8 @@ set -e
 cd /var/www
 
 echo "===> Waiting for MySQL to be ready..."
-until mysql -h mysql -u laravel -ppassword -e "SELECT 1" >/dev/null 2>&1; do
+
+until nc -z mysql 3306; do
   sleep 2
 done
 

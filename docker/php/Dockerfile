@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     default-mysql-client \
     nodejs \
     npm \
+    netcat-openbsd \
     && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
