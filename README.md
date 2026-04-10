@@ -90,12 +90,18 @@ UIとバックエンドの両方で安全性を確保しました。
 ![部署一覧](images/departments.png)
 
 ## 🚀 ローカル起動方法
-- 前提
-  - Docker Desktop がインストールされていること
-- セットアップ
-  - git clone https://github.com/ryuunosuke-1113/employee-management-app.git
-cd employee-management-app<br>
-docker compose up -d --build<br>
+
+### 前提
+- Docker Desktop がインストールされていること
+
+### セットアップ手順
+
+```bash
+git clone https://github.com/ryuunosuke-1113/employee-management-app.git
+cd employee-management-app
+docker compose up -d --build
+```
+
 - 初回起動時に自動実行される処理
   - composer install
   - .env 作成
@@ -106,10 +112,10 @@ docker compose up -d --build<br>
 - アプリ：http://localhost:8080
 - phpMyAdmin：http://localhost:8081
 ## テスト用アカウント
-|権限|メール|パスワード|
-|管理者	|admin@example.com|password|
-|一般ユーザー|	user@example.com|password|
-
+| 権限 | メール | パスワード |
+|------|--------|-----------|
+| 管理者 | admin@example.com | password |
+| 一般ユーザー | user@example.com | password |
 	
 ## 🧯 トラブルシューティング
 - コンテナ確認
