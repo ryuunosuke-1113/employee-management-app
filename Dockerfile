@@ -24,6 +24,8 @@ WORKDIR /var/www
 # ← これ超重要
 COPY . .
 
+RUN cd src && composer install --no-dev --optimize-autoloader
+
 COPY scripts/start.sh /start.sh
 RUN chmod +x /start.sh
 
