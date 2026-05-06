@@ -21,6 +21,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
+# ← これ超重要
+COPY . .
+
 COPY scripts/start.sh /start.sh
 RUN chmod +x /start.sh
 
