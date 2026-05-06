@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd /var/www/src
+
 php artisan config:clear
 php artisan route:clear
 php artisan view:clear
