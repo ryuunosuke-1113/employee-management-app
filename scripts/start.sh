@@ -2,10 +2,7 @@
 
 cd /var/www/src
 
-if [ ! -f .env ]; then
-  cp .env.example .env
-fi
-
+cp .env.example .env
 mkdir -p database
 mkdir -p storage/framework/cache
 mkdir -p storage/framework/sessions
