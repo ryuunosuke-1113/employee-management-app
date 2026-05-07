@@ -2,6 +2,10 @@
 
 cd /var/www/src
 
+if [ ! -f .env ]; then
+  cp .env.example .env
+fi
+
 php artisan config:clear
 php artisan route:clear
 php artisan view:clear
