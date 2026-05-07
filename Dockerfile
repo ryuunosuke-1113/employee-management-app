@@ -26,6 +26,8 @@ COPY . .
 
 RUN cd src && composer install --no-dev --optimize-autoloader
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+
+RUN rm /etc/nginx/sites-enabled/default
 COPY scripts/start.sh /start.sh
 RUN chmod +x /start.sh
 
