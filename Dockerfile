@@ -30,5 +30,5 @@ COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 RUN rm /etc/nginx/sites-enabled/default
 COPY scripts/start.sh /start.sh
 RUN chmod +x /start.sh
-
+RUN chmod -R 777 /var/www
 CMD ["/start.sh"]
