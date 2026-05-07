@@ -20,7 +20,6 @@ php artisan view:clear
 
 touch database/database.sqlite
 
-php artisan key:generate --force
 php artisan migrate --seed --force
 
 php-fpm -D
